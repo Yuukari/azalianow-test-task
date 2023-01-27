@@ -10,11 +10,14 @@ export default class NumbersRouter implements IRouter {
     }
 
     public async handle(ctx: RequestContext) {
+        if (ctx.res.writableEnded)
+            return;
+            
         switch (ctx.url){
             case '/numbers':
                 if (ctx.method == 'GET')
                     await this.controller!.get(ctx);
-                if (ctx.method == 'POST')
+                else if (ctx.method == 'POST')
                     await this.controller!.create(ctx);
         }
     }

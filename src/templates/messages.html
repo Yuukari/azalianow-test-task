@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Тестовое задание Azalianow</title>
+
+        <link rel="stylesheet" href="/assets/css/normalize.css">
+        <link rel="stylesheet" href="/assets/css/stylesheet.css">
+    </head>
+
+    <body>
+        <main>
+            <h1>Сообщения</h1>
+
+            <form class="form" method="post" action="/messages">
+                <div class="formContent">
+                    <div class="formField">
+                        <label class="formField__label">Сообщение</label>
+                        <textarea class="formField__control textarea fluid" name="message" placeholder="Введите ваше сообщение"></textarea>
+                    </div>
+
+                    <div class="formField">
+                        <label class="formField__label">Автор</label>
+                        <input class="formField__control input fluid" type="text" name="author" placeholder="Ваше имя">
+                    </div>
+                </div>
+
+                <div class="formFooter">
+                    <button class="button button_primary fluid" type="submit">Отправить</button>
+                </div>
+            </form>
+
+            <div class="messages">
+                <h2>Все сообщения</h2>
+                
+                <div class="messagesList">
+                    <article class="messageBubble">
+                        <p class="messageBubble__text">My test message</p>
+                        <p class="messageBubble__author">Yuukari</p>
+                    </article>
+                </div>
+            </div>
+
+            <div class="formFooter">
+                <a class="button fluid" href="/">Назад</a>
+            </div>
+        </main>
+    </body>
+</html>
+

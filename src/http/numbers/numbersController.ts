@@ -22,7 +22,7 @@ export default class NumbersController extends BaseController {
             const body = await this.getRequestBody(req);
 
             res.statusCode = 201;
-            return this.sendJSON(res, {
+            this.sendJSON(res, {
                 status: 'success'            
             });
         } catch (e){

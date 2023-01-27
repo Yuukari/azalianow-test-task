@@ -12,6 +12,15 @@ export default class MessagesController extends BaseController {
         this.messageService = new MessagesService();
     }
 
+    public async index({ res }: RequestContext) {
+        const templateData = await this.getTemplateData('messages');
+
+        if (templateData == null)
+            return;
+
+        this.sendHTML(res, templateData);
+    }
+
     public async create({ req, res }: RequestContext) {
         try {
             const body = await this.getRequestBody(req);
@@ -22,7 +31,7 @@ export default class MessagesController extends BaseController {
             this.messageService.addMessage(body as Message);
 
             res.statusCode = 201;
-            return this.sendJSON(res, body);
+            this.sendJSON(res, body);
         } catch (e){
             res.statusCode = 500;
 

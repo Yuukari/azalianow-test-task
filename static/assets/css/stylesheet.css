@@ -1,0 +1,169 @@
+@font-face {
+    font-family: 'Montserrat Regular';
+    src: url('/assets/fonts/Montserrat-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Montserrat Medium';
+    src: url('/assets/fonts/Montserrat-Medium.ttf');
+}
+
+@font-face {
+    font-family: 'Montserrat Bold';
+    src: url('/assets/fonts/Montserrat-Bold.ttf');
+}
+
+/****************** Common styles ******************/
+
+body {
+    font-family: 'Montserrat Medium';
+    font-size: 16px;
+
+    color: #111111;
+    background: #fafafb;
+}
+
+main {
+    max-width: 500px;
+    width: 100%;
+    margin: 60px auto;
+    padding: 0px 15px;
+    box-sizing: border-box;
+}
+
+h1, h2 {
+    text-align: center;
+    margin: 0px;
+
+    font-family: 'Montserrat Bold';
+}
+
+/****************** Controls ******************/
+
+/* Button */
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+
+    height: 45px;
+    padding: 15px;
+
+    border: none;    
+    border-radius: 25px;
+    background: #EDEEF0;
+    color: #111111;
+
+    cursor: pointer;
+    text-decoration: none;
+
+    transition: background 0.15s;
+}
+
+.button:hover, .button:focus {
+    background: #dddee0;
+}
+
+.button_primary {
+    color: #ffffff;
+    background: #2E6DF8;
+}
+
+.button_primary:hover, .button_primary:focus {
+    background: #285bca;
+}
+
+/* Textarea, Input */
+
+.textarea, .input {
+    display: block;
+    box-sizing: border-box;
+
+    color: #111111;
+    border: 2px solid #E5E5E5;
+    border-radius: 10px;
+    outline: none;
+    
+    padding: 15px;
+
+    transition: color 0.15s, border-color 0.15s;
+}
+
+.textarea, .input::placeholder {
+    color: #646464;
+}
+
+.textarea:hover, .input:hover {
+    border-color: #2E6DF8;
+}
+
+.textarea:focus, .input:focus {
+    border-color: #2E6DF8;
+}
+
+.textarea {
+    color: #111111;
+    resize: vertical;
+    min-height: 140px;
+}
+
+/****************** Form styles ******************/
+
+.form {
+    margin-top: 40px;
+}
+
+.formField:not(.formField:first-child) {
+    margin-top: 20px;
+}
+
+.formField__label {
+    color: #646464;
+}
+
+.formField__control {
+    margin-top: 12px;
+}
+
+.formFooter {
+    margin-top: 40px;
+}
+
+/****************** Utils ******************/
+
+.fluid {
+    width: 100%;
+}
+
+/****************** Messages page ******************/
+
+.messages {
+    margin-top: 80px;
+}
+
+.messagesList {
+    margin-top: 40px;
+}
+
+.messageBubble {
+    background: #EDEEF0;
+    border-radius: 25px;
+    padding: 25px;
+}
+
+.messageBubble:not(.messageBubble:first-child){
+    margin-top: 20px;
+}
+
+.messageBubble__text {
+    margin: 0px;
+}
+
+.messageBubble__author {
+    margin: 8px 0px 0px;
+    color: #646464;
+
+    text-align: right;
+}

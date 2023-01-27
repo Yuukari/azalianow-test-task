@@ -4,6 +4,8 @@ import path from 'node:path';
 import dotenv from 'dotenv';
 
 import { initHTTP } from './src/http';
+import { staticServerMiddleware } from './src/http/middlewares'; 
+
 import { RequestContext } from './src/http/types';
 
 dotenv.config();
@@ -25,12 +27,13 @@ const bootstrapChecks = () => {
 }
 
 const handleRequest = async (ctx: RequestContext) => {
-    for (const router of routers){
+    for (const router of routers)
         await router.handle(ctx);
 
-        if (ctx.res.writableEnded)
-            return;
-    }
+    await staticServerMiddleware(ctx);
+
+    if (ctx.res.writableEnded)
+        return;
 
     ctx.res.statusCode = 404;
     ctx.res.end(`Not Found: ${ctx.req.method} ${ctx.req.url}`);

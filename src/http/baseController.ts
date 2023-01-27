@@ -1,4 +1,12 @@
+import * as fs from 'node:fs';
+import path from 'node:path';
+import { promisify } from 'node:util';
+
+import { templatesDir } from '../../config';
+
 import { Request, Response } from './types';
+
+const readFile = promisify(fs.readFile);
 
 export class BaseController {
     protected getRequestBody(req: Request): Promise<any> {
@@ -15,6 +23,20 @@ export class BaseController {
                 }
             });
         });
+    }
+
+    protected async getTemplateData(template: string): Promise<string | null>{
+        const templatePath = path.join(templatesDir, `${template}.html`);
+
+        if (!fs.existsSync(templatePath))
+            return null;
+
+        return (await readFile(templatePath, { encoding: 'utf8' })).toString();
+    }
+
+    protected sendHTML(res: Response, content: string) {
+        res.setHeader('Content-Type', 'text/html; charset=utf-8');
+        res.end(content);
     }
 
     protected sendJSON(res: Response, data: any) {

@@ -1,8 +1,8 @@
 import { Request, Response } from './types';
 
 export class BaseController {
-    protected getRequestBody(req: Request): Promise<string> {
-        return new Promise<string>((resolve, reject) => {
+    protected getRequestBody(req: Request): Promise<any> {
+        return new Promise<any>((resolve, reject) => {
             let body = "";
 
             req.on('data', (chunk) => body += chunk);

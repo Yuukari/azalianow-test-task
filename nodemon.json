@@ -1,4 +1,4 @@
 {
     "ext": "ts,json,html,css",
-    "ignore": ["/storage/**"]
+    "ignore": ["./storage/**"]
 }

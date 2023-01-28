@@ -1,5 +1,6 @@
 import * as fs from 'node:fs';
 import path from 'node:path';
+import { URLSearchParams } from 'node:url';
 import { promisify } from 'node:util';
 
 import { templatesDir } from '../../config';
@@ -9,17 +10,17 @@ import { Request, Response } from './types';
 const readFile = promisify(fs.readFile);
 
 export class BaseController {
-    protected getRequestBody(req: Request): Promise<any> {
+    protected getRequestBody(req: Request): Promise<URLSearchParams> {
         return new Promise<any>((resolve, reject) => {
             let body = "";
 
             req.on('data', (chunk) => body += chunk);
             req.on('end', () => {
                 try {
-                    const jsonPayload = JSON.parse(body);
-                    resolve(jsonPayload);
+                    const formData = new URLSearchParams(body);
+                    resolve(formData);
                 } catch {
-                    reject(new Error('Request body must be valid JSON object'));
+                    reject(new Error('Request body must have x-www-form-urlencoded body'));
                 }
             });
         });

@@ -1,4 +1,4 @@
-import { RequestContext } from '../types';
+import { RequestContext, Response } from '../types';
 import { BaseController } from '../baseController';
 
 import { MessagesService } from '../../services';
@@ -13,10 +13,32 @@ export default class MessagesController extends BaseController {
     }
 
     public async index({ res }: RequestContext) {
-        const templateData = await this.getTemplateData('messages');
+        await this.sendIndexPage(res);   
+    }
 
+    private async sendIndexPage(res: Response, successMessage?: string) {
+        let templateData = await this.getTemplateData('messages');
+
+        // TO-DO: Remove it
         if (templateData == null)
             return;
+
+        const messages = (await this.messageService.getMessages()).reverse();
+        const messageBubbleTemplate = await this.getTemplateData('partials/message-bubble');
+
+        const messagesHTML = messages.map(message => 
+            messageBubbleTemplate!
+                .replace('{{text}}', message.text)
+                .replace('{{author}}', message.author)
+        );
+        templateData = templateData.replace('{{messages}}', messagesHTML.join(""));
+
+        if (successMessage != null){
+            const successHintTemplate = await this.getTemplateData('partials/success-hint');
+            templateData = templateData.replace('{{successHint}}', successHintTemplate!.replace('{{text}}', successMessage));
+        } else {
+            templateData = templateData.replace('{{successHint}}', '');
+        }
 
         this.sendHTML(res, templateData);
     }
@@ -25,15 +47,19 @@ export default class MessagesController extends BaseController {
         try {
             const body = await this.getRequestBody(req);
 
-            if (body.text == undefined || body.author == undefined)
+            if (!body.has('text') || !body.has('author'))
                 throw new Error(`Too few parameters. Required parameters: text, author`);
 
-            this.messageService.addMessage(body as Message);
+            const message: Message = {
+                text: body.get('text')!,
+                author: body.get('author')!
+            }
 
-            res.statusCode = 201;
-            this.sendJSON(res, body);
+            this.messageService.addMessage(message);
+
+            await this.sendIndexPage(res, 'Сообщение отправлено');
         } catch (e){
-            res.statusCode = 500;
+            res.statusCode = 400;
 
             this.sendJSON(res, {
                 error: {

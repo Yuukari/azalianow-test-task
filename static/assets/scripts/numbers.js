@@ -12,16 +12,24 @@ const buttonCreate = document.querySelector("#button-create");
 
 let numberRecords = [];
 
-const startLoading = (text) => {
+const showHint = (text) => {
     if (text != undefined)
         loadingHintText.textContent = text;
 
-    table.classList.add('hidden');
     loadingHint.classList.remove('hidden');
 }
 
-const stopLoading = () => {
+const hideHint = () => {
     loadingHint.classList.add('hidden');
+}
+
+const startLoading = () => {
+    showHint('Загрузка...');
+    table.classList.add('hidden');
+}
+
+const stopLoading = () => {
+    hideHint();
     table.classList.remove('hidden');
 }
 
@@ -50,8 +58,12 @@ const getNumberRecords = async () => {
 const updateNumberRecords = async () => {
     numberRecords = await getNumberRecords();
     
-    stopLoading();
-    renderNumberRecords();
+    if (numberRecords.length > 0){
+        stopLoading();
+        renderNumberRecords();
+    } else {
+        showHint("Рассчетов еще не было");
+    }
 }
 
 const renderNumberRecords = () => {
@@ -98,6 +110,7 @@ const onButtonCreateClick = async () => {
 
     inputValue.value = "";
 
+    stopLoading();
     renderNumberRecords();
 }
 

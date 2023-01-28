@@ -51,8 +51,34 @@ tbody tr:nth-child(odd) {
     background: #EDEEF0;
 }
 
+a:not(a.button) {
+    color: #2E6DF8;
+    transition: color 0.15s;
+}
+
+a:hover:not(a.button), a:focus:not(a.button) {
+    color: #285bca;
+}
+
 .marker {
     font-family: 'Montserrat Bold';
+}
+
+.repoLink {
+    display: block;
+    text-align: center;
+}
+
+.linksWrapper {
+    margin-top: 40px;
+}
+
+.linksWrapper a:not(.linksWrapper a:first-child){
+    margin-top: 20px;
+}
+
+.hint {
+    text-align: center;
 }
 
 /****************** Controls ******************/
@@ -214,10 +240,6 @@ tbody tr:nth-child(odd) {
     text-align: right;
 }
 
-.backButton {
-    margin-top: 40px;
-}
-
 /****************** Numbers page ******************/
 
 .numbers {
@@ -227,8 +249,4 @@ tbody tr:nth-child(odd) {
 .numbersTable {
     margin-top: 40px;
     width: 100%;
-}
-
-.numbers .backButton {
-    margin-top: 30px;
 }

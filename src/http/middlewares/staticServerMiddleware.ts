@@ -24,18 +24,24 @@ const staticServerMiddleware = async ({ url, method, res }: RequestContext) => {
     if (method != 'GET')
         return;
 
-    const filename = path.join(staticDir, url);
+    let filename = path.join(staticDir, url);
     const pageExists = fs.existsSync(`${filename}.html`);
+    const indexExists = fs.existsSync(path.join(filename, 'index.html'));
 
-    if (!fs.existsSync(filename) && !pageExists)
+    if (!fs.existsSync(filename) && !pageExists && !indexExists)
         return;
+
+    if (pageExists)
+        filename = filename + '.html';
+    else if (indexExists)
+        filename = path.join(filename, 'index.html');
     
     const fileExt = path.extname(filename);
-    const mimeType = getMimeType(pageExists ? '.html' : fileExt);
+    const mimeType = getMimeType(fileExt);
     if (mimeType == null)
         return;
 
-    const fileData = await readFile(pageExists ? `${filename}.html` : filename);
+    const fileData = await readFile(filename);
 
     res.setHeader('Content-Type', `${mimeType}`);
     res.end(fileData);

@@ -27,6 +27,10 @@ export default class NumbersController extends BaseController {
                 parseFloat(body.get('value')!) :
                 parseInt(body.get('value')!);
 
+            // Приведение к модулю, т.к. для отметки отрицательных чисел есть чекбокс
+            // возможно, я что-то не так понял в задании
+            value = Math.abs(value);
+
             if (isNaN(value))
                 throw new Error(`Parameter 'value' must be a numeric value`)
 

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Тестовое задание Azalianow</title>
+
+        <link rel="stylesheet" href="/assets/css/normalize.css">
+        <link rel="stylesheet" href="/assets/css/stylesheet.css">
+    </head>
+
+    <body>
+        <main>
+            <h1>Средние числа</h1>
+
+            <form class="form">
+                <h2>Рассчет среднего числа</h2>
+
+                <div class="formContent">
+                    <div class="formField">
+                        <label class="formField__label">Число</label>
+                        <input class="formField__control input fluid" type="number" id="value" placeholder="Введите число">
+                    </div>
+
+                    <div class="formField">
+                        <input type="checkbox" name="option_negative" id="option-negative">
+                        <label class="formField__label" for="option-negative">Отрицательное</label>
+                    </div>
+
+                    <div class="formField">
+                        <input type="checkbox" name="option_float" id="option-float">
+                        <label class="formField__label" for="option-float">Дробное</label>
+                    </div>
+                </div>
+
+                <div class="formFooter">
+                    <button class="button button_primary fluid" type="button" id="button-create">Отправить</button>
+                </div>
+            </form>
+
+            <div class="numbers">
+                <h2>Предыдущие рассчеты</h2>
+
+                <div class="hint">
+                    <p class="hint__text">Загрузка...</p>
+                </div>
+
+                <table class="numbersTable hidden">
+                    <thead>
+                        <tr>
+                            <th>Число</th>
+                            <th>Предыдущее число</th>
+                            <th>Среднее</th>
+                        </tr>
+                    </thead>    
+
+                    <tbody>
+                    </tbody>
+                </table>
+
+                <a class="backButton button fluid" href="/">Назад</a>
+            </div>
+        </main>
+
+        <script type="text/javascript" src="/assets/scripts/numbers.js"></script>
+    </body>
+</html>
+

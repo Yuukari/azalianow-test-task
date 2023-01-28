@@ -9,6 +9,7 @@ const readFile = promisify(fs.readFile);
 
 const getMimeType = (extension: string): string | null => {
     switch (extension){
+        case ".html": return "text/html; charset=utf-8";
         case ".css": return "text/css";
         case ".js": return "application/javascript";
         case ".ttf": return "font/ttf";
@@ -24,15 +25,17 @@ const staticServerMiddleware = async ({ url, method, res }: RequestContext) => {
         return;
 
     const filename = path.join(staticDir, url);
-    if (!fs.existsSync(filename))
+    const pageExists = fs.existsSync(`${filename}.html`);
+
+    if (!fs.existsSync(filename) && !pageExists)
         return;
     
     const fileExt = path.extname(filename);
-    const mimeType = getMimeType(fileExt);
+    const mimeType = getMimeType(pageExists ? '.html' : fileExt);
     if (mimeType == null)
         return;
 
-    const fileData = await readFile(filename);
+    const fileData = await readFile(pageExists ? `${filename}.html` : filename);
 
     res.setHeader('Content-Type', `${mimeType}`);
     res.end(fileData);

@@ -38,6 +38,23 @@ h1, h2 {
     font-family: 'Montserrat Bold';
 }
 
+table {
+    border-spacing: 0px;
+}
+
+th, td {
+    text-align: left;
+    padding: 10px 15px;
+}
+
+tbody tr:nth-child(odd) {
+    background: #EDEEF0;
+}
+
+.marker {
+    font-family: 'Montserrat Bold';
+}
+
 /****************** Controls ******************/
 
 /* Button */
@@ -162,6 +179,10 @@ h1, h2 {
     width: 100%;
 }
 
+.hidden {
+    display: none;
+}
+
 /****************** Messages page ******************/
 
 .messages {
@@ -195,4 +216,19 @@ h1, h2 {
 
 .backButton {
     margin-top: 40px;
+}
+
+/****************** Numbers page ******************/
+
+.numbers {
+    margin-top: 60px;
+}
+
+.numbersTable {
+    margin-top: 40px;
+    width: 100%;
+}
+
+.numbers .backButton {
+    margin-top: 30px;
 }

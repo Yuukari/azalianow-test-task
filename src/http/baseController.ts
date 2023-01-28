@@ -26,11 +26,11 @@ export class BaseController {
         });
     }
 
-    protected async getTemplateData(template: string): Promise<string | null>{
+    protected async getTemplateData(template: string): Promise<string>{
         const templatePath = path.join(templatesDir, `${template}.html`);
 
         if (!fs.existsSync(templatePath))
-            return null;
+            throw new Error(`Template '${template}' not found`);
 
         return (await readFile(templatePath, { encoding: 'utf8' })).toString();
     }

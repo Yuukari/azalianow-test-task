@@ -19,15 +19,11 @@ export default class MessagesController extends BaseController {
     private async sendIndexPage(res: Response, successMessage?: string) {
         let templateData = await this.getTemplateData('messages');
 
-        // TO-DO: Remove it
-        if (templateData == null)
-            return;
-
         const messages = (await this.messageService.getMessages()).reverse();
         const messageBubbleTemplate = await this.getTemplateData('partials/message-bubble');
 
         const messagesHTML = messages.map(message => 
-            messageBubbleTemplate!
+            messageBubbleTemplate
                 .replace('{{text}}', message.text)
                 .replace('{{author}}', message.author)
         );
@@ -35,7 +31,7 @@ export default class MessagesController extends BaseController {
 
         if (successMessage != null){
             const successHintTemplate = await this.getTemplateData('partials/success-hint');
-            templateData = templateData.replace('{{successHint}}', successHintTemplate!.replace('{{text}}', successMessage));
+            templateData = templateData.replace('{{successHint}}', successHintTemplate.replace('{{text}}', successMessage));
         } else {
             templateData = templateData.replace('{{successHint}}', '');
         }

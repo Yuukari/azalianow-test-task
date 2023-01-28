@@ -59,13 +59,13 @@ export default class MessagesController extends BaseController {
 
             await this.sendIndexPage(res, 'Сообщение отправлено');
         } catch (e){
-            res.statusCode = 400;
+            res.statusCode = 500;
 
             this.sendJSON(res, {
                 error: {
                     message: (e as Error).message
                 }
-            })
+            });
         }
     }
 }
